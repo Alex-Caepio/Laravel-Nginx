@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,14 +22,6 @@ class LoginController extends Controller
         return response(['accessToken'=>$accessToken], 201);
     }*/
 
-    public function register(ValidateRegistration $request, array $data)
-    {
-        $request->email = $data['email'];
-        $request->password = $data['password'];
-        $request->password_confirmation = $data['password_confirmation'];
-
-    }
-
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -37,11 +29,18 @@ class LoginController extends Controller
         $this->userService = $userService;
     }
 
-    public function store(UserService $userService, array $data)
+
+    public function store(ValidateRegistration $request)
     {
-        $userService->createUser($data);
+        $data = [];
+        $data['email'] = $request->email;
+        $data['password'] = $request->password;
+        $this->userService->createUser($data);
+        return response(["token" => $this->userService->token], 201);
+
     }
 
+         
 }
 
 
