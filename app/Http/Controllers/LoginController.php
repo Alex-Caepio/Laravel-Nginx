@@ -13,15 +13,6 @@ use App\Http\Requests\ValidateRegistration;
 
 class LoginController extends Controller
 {
-    /*public function register(ValidateRegistration $request)
-    {
-        $user = User::create($request->validated());
-
-        $accessToken = $user->createToken('authToken')->accessToken;
-
-        return response(['accessToken'=>$accessToken], 201);
-    }*/
-
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -30,14 +21,18 @@ class LoginController extends Controller
     }
 
 
-    public function store(ValidateRegistration $request)
+    public function store(ValidateRegistration $request, User $user)
     {
         $data = [];
         $data['email'] = $request->email;
         $data['password'] = $request->password;
+        $data['token'] = $user->createToken('token')->accessToken;
+        
         $this->userService->createUser($data);
-        return response(["token" => $this->userService->token], 201);
+        
+        return response(['token'=>$data['token']], 201);
 
+        
     }
 
          

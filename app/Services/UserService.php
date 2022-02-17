@@ -16,13 +16,15 @@ class UserService {
 
         /**/
     }     
-    public function newToken(User $user){
-        $accessToken = $user->createToken('authToken')->accessToken;
+   /* public function createToken(User $user, array $data){
+        
+       $data['token'] = $user->createToken('authToken')->accessToken;
+       
+       $this->token = $data['token'];
 
-        //return response(['accessToken'=>$accessToken], 201);
-        return $this->token = $accessToken;
+       return response(['token'=>$data['token']], 201);
 
-    }
+    }*/
 
     
 }
