@@ -1,25 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateRegistration;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    public function register(ValidateRegistration $request)
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
-        $user = User::create($request->validated());
-
-        $accessToken = $user->createToken('authToken')->accessToken;
-
-        return response(['accessToken'=>$accessToken], 201);
+        $this->userService = $userService;
     }
+
+
+    public function store(ValidateRegistration $request)
+    {
+        $data = [];
+        $data['email'] = $request->email;
+        $data['password'] = bcrypt($request->password);
+                
+        $this->userService->createUser($data);
+        
+        return response(['token'=>$this->userService->token], 201);
+    }
+         
 }
 
 
