@@ -29,13 +29,9 @@ class RegisterTest extends TestCase
         $response = $this->post('/api/users', $registrationData)->assertStatus(201)
                                                                 ->assertJsonStructure(['token']); 
             
-        $registrationDatabase = [
-            'email' => "kssfpdf@frtw.com",
-            'password' => "123456789",
-            'password_confirmation' => "12345678"
-        ];
+        $registrationData= ['password_confirmation'=>"12345678"];
 
-        $response = $this->post('/api/users', $registrationDatabase)->assertStatus(302);
+        $response = $this->post('/api/users', $registrationData)->assertStatus(302);
                                                                                         
     }
 

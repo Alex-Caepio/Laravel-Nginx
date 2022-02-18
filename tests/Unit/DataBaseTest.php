@@ -21,7 +21,7 @@ class DataBaseTest extends TestCase
         Artisan::call('passport:install');
 
         $data = ['email'=>'asasjksad@asdsad.com',
-                'password'=>123456789
+                'password'=>bcrypt(123456789)
     ];
 
         $user = User::create($data);
