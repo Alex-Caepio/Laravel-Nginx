@@ -21,12 +21,22 @@ class RegisterTest extends TestCase
     }
     public function testRegistration()
     {
-        $response = $this->post('/api/users', [
+        $registrationData = [
             'email' => "kssfpdf@frtw.com",
             'password' => "123456789",
             'password_confirmation' => "123456789"
-        ]);
+        ];
+        $response = $this->post('/api/users', $registrationData)->assertStatus(201);
             
-        $response->assertStatus(201);
+        $registrationDatabase = [
+            'email' => "kssfpdf@frtw.com",
+            'password' => "123456789",
+            'password_confirmation' => "12345678"
+        ];
+
+        $response = $this->post('/api/users', $registrationDatabase)->assertStatus(302);
+                    
     }
+
+    
 }

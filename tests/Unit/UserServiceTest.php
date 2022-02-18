@@ -22,5 +22,5 @@ class UserServiceTest extends TestCase
     {
         $this->assertClassHasAttribute('token', UserService::class);
     }
-   
+       
 }
