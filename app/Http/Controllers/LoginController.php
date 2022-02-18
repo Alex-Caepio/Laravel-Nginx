@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ValidateRegistration;
 
 class LoginController extends Controller
@@ -21,20 +17,16 @@ class LoginController extends Controller
     }
 
 
-    public function store(ValidateRegistration $request, User $user)
+    public function store(ValidateRegistration $request)
     {
         $data = [];
         $data['email'] = $request->email;
-        $data['password'] = $request->password;
-        $data['token'] = $user->createToken('token')->accessToken;
-        
+        $data['password'] = bcrypt($request->password);
+                
         $this->userService->createUser($data);
         
-        return response(['token'=>$data['token']], 201);
-
-        
+        return response(['token'=>$this->userService->token], 201);
     }
-
          
 }
 
