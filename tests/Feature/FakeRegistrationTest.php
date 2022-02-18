@@ -8,10 +8,10 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class DataBaseTest extends TestCase
+class FakeRegistration extends TestCase
 {
     use DatabaseMigrations;
-
+    
     protected function setUp():void
     {
         parent::setUp();
@@ -19,14 +19,14 @@ class DataBaseTest extends TestCase
         Artisan::call('db:seed');
         Artisan::call('passport:install');
     }
-
-    public function testDatabase()
-{
-     
-    $this->assertDatabaseHas('users', [
-        'email' => 'asasjksad@asdsad.com'
-    ]);
-   
-}
-
+    public function testRegistration()
+    {
+        $response = $this->post('/api/users', [
+            'email' => "kssfpdf@frtw.com",
+            'password' => "123456789",
+            'password_confirmation' => "12345678"
+        ]);
+            
+        $response->assertStatus(302);
+    }
 }
