@@ -12,19 +12,19 @@ class AuthController extends Controller
 
     public function login(AuthRequest $request)
     {
-        $data = [];
-        $data['email'] = $request->email;
-        $data['password'] = $request->password;
-        
+        $data = [
+            'email'=>$request->email,
+            'password'=>$request->password
+        ];
+
         if(Auth::attempt($data))
         {
             $user = Auth::user();
             $token = $user->createToken('token')->accessToken;
             return response()->json(['token' => $token], 200);
-            
-        } else{
-            return response()->json([
-                'message' => 'Page Not Found'], 404);
+
         }
-    }
+            return response()->json([
+                'message' => 'Page Not Found'], 422);
+        }
 }

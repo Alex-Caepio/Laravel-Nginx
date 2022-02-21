@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginTest extends TestCase
 {
-    
+
     use DatabaseMigrations;
-    
+
     protected function setUp():void
     {
         parent::setUp();
@@ -27,22 +27,21 @@ class LoginTest extends TestCase
     {
         $user = User::create([
             'email' => "asa@aa.aa",
-            'password' => Hash::make("123456789"),
-            'password_confirmation' => "123456789"
-        ]);        
-                
+            'password' => Hash::make("123456789")
+        ]);
+
         $response = $this->post('/api/login', [
             'email' => "asa@aa.aa",
-            'password' => "123456789",
-            'password_confirmation' => "123456789"
+            'password' => "123456789"
         ])->assertStatus(200)
         ->assertJsonStructure(['token']);
 
-        $this->assertAuthenticatedAs($user); 
-        
+        $this->assertAuthenticatedAs($user);
+
         $response = $this->post('/api/login', [
-            'password_confirmation' => "1234567"
-        ])->assertStatus(302);
-                                                                                                       
+            'email' => "asa@aa.aa",
+            'password' => "1234567"
+        ])->assertStatus(422);
+
     }
 }
