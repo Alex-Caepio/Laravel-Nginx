@@ -16,9 +16,10 @@ class CreateResetPasswordTable extends Migration
     {
         Schema::create('reset_password', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedbigInteger('user_id')->default(1);
+            $table->integer('user_id')->nullable();
             $table->string('token', 64);
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('email')->default("a");
+            //$table->foreign('token')->references('id')->on('users')->onDelete('cascade');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
