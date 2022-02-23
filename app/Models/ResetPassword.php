@@ -9,7 +9,11 @@ class ResetPassword extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+
+
+    public static function where(string $string, $email)
+    {
+    }
 
     public function user()
     {

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResetRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Models\Reset;
+use App\Models\ResetPassword;
 use App\Models\User;
 use App\Mail\SendMailreset;
 use Illuminate\Support\Str;
@@ -13,48 +17,53 @@ use Illuminate\Support\Facades\Mail;
 
 class PasswordResetRequestController extends Controller
 {
-    public function sendEmail(Request $request) 
+    public function sendEmail(UpdatePasswordRequest $request)
     {
-        if (!$this->validateEmail($request->email)) { 
+        $email = $request['email'];
+        $user = User::where('email', $email)->get();
+        if (!$request->email) {
             return $this->failedResponse();
         }
-        $this->send($request->email);  
+        $this->send($request->email);
         return $this->successResponse();
     }
 
-    public function send($email)  
+    public function send($email)
     {
         $token = $this->createToken($email);
-        Mail::to($email)->send(new SendMailreset($token, $email));  
+        Mail::to($email)->send(new SendMailreset($token, $email));
     }
 
-    public function createToken($email) 
+    public function createToken($email, UpdatePasswordRequest $request)
     {
-        $oldToken = DB::table('password_resets')->where('email', $email)->first();
+        $email = $request['email'];
+        $reset = Reset::where('email', $email)->first();
 
-        if ($oldToken) {
-            return $oldToken->token;
+        if ($reset) {
+            return $reset['token'];
         }
 
         $token = Str::random(40);
-        $this->saveToken($token, $email);
+        $reset['token'] = $token;
+        $reset['mail'] = $email;
+
         return $token;
     }
 
 
-    public function saveToken($token, $email)
+   /* public function saveToken($token, $email)
     {
         DB::table('password_resets')->insert([
             'email' => $email,
             'token' => $token,
             'created_at' => Carbon::now()
         ]);
-    }
+    }*/
 
-    public function validateEmail($email) 
+   /* public function validateEmail($email)
     {
         return User::where('email', $email)->first();
-    }
+    }*/
 
     public function failedResponse()
     {
