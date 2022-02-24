@@ -17,7 +17,7 @@ class CreateResetsTable extends Migration
             $table->id();
             $table->integer('user_id')->nullable();
             $table->string('token', 64);
-            $table->string('email')->index();
+            $table->string('email');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
