@@ -28,7 +28,7 @@ class ResetController extends Controller
         if (!$reset) {
             $reset = new Reset();
 
-            $token = md5(Str::random(40).time().$user->id);
+            $token = md5(Str::random(40).time());
             $reset->fill([
                 'token' => $token,
                 'email' => $email
@@ -41,7 +41,7 @@ class ResetController extends Controller
 
             return $this->successResponse();
         }
-        return $email;
+       // return $email;
     }
         public function successResponse()
     {
