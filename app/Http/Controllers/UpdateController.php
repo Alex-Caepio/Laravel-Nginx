@@ -19,12 +19,11 @@ class UpdateController extends Controller
 
     public function update(UpdateRequest $request, User $user)
     {
-        $data = [];
-        $data['email'] = $request->email;
-        $data['password'] = bcrypt($request->password);
-
         if(Gate::allows('auth-user', $user))
         {
+            $data = [];
+            $data['email'] = $request->email;
+            $data['password'] = bcrypt($request->password);
             $this->service->updateAuth($data);
         }
         return response()->json([
