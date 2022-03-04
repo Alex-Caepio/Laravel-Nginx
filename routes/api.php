@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ResetController;
+use App\Http\Controllers\UpdateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -30,3 +31,4 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/resetPassword', [ChangePasswordController::class, 'resetPassword']);
 
 Route::post('/send', [ResetController::class, 'sendEmail']);
+Route::put('/users/{user}', [UpdateController::class, 'update']);
