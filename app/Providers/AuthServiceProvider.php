@@ -31,10 +31,13 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        Gate::define('auth-user', function(UpdateRequest $request)
+        Gate::define('auth-user', function($request, $user)
         {
-            $id = Auth::id();
-            return $id === $request->id;
+            /*$id = Auth::id();
+            return $id === $request->id;*/
+
+            return $user->id == $request->id;
+
         });
 
     }

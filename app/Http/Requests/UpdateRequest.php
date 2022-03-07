@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'email' => ['email',
-            Rule::unique('users')->ignore($this->id)],
+            /*Rule::unique('users')->ignore($this->id)*/],
             'password' => 'min:2|max:10',
             'password_confirmation' => 'same:password'
         ];
