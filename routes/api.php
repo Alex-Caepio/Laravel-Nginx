@@ -17,10 +17,22 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+   return $request->user();
+
 });
 
 
 Route::post('/users', [LoginController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 
+<<<<<<< Updated upstream
+=======
+Route::post('/resetPassword', [ChangePasswordController::class, 'resetPassword']);
+
+Route::post('/send', [ResetController::class, 'sendEmail']);
+
+Route::patch('/users/{user}', [UpdateController::class, 'update'])->middleware(['auth:api']);
+
+
+
+>>>>>>> Stashed changes

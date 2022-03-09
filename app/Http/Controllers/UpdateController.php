@@ -21,6 +21,7 @@ class UpdateController extends Controller
     {
         if(Gate::allows('auth-user', $user))
         {
+<<<<<<< Updated upstream
             $data = [];
             $data['email'] = $request->email;
             $data['password'] = bcrypt($request->password);
@@ -28,5 +29,15 @@ class UpdateController extends Controller
         }
         return response()->json([
             'message' => 'Page Not Found'], 422);
+=======
+            $this->service->updateAuth($request);
+
+            return response()->json([
+                'message' => 'Success'], 202);
+        }
+            return response()->json([
+            'message' => 'Page Not Found'], 422);
+
+>>>>>>> Stashed changes
     }
 }
