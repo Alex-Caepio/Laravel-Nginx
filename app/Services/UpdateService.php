@@ -7,16 +7,23 @@ use App\Models\User;
 
 class UpdateService
 {
-    public function updateAuth(UpdateRequest $request)
+    public function updateAuth($user, array $data)
     {
-        //$updated = User::where('id', $request->id)->first();
-        $user = User::where('id', $request->route('user.id'))->first();
+        $update = [];
 
-        $user->update([
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
+        if (!empty($data['email']))
+        {
+            $update['email'] = $data['email'];
+        }
+        if (!empty($data['password']))
+        {
+            $update['password'] = bcrypt($data['password']);
+        }
+
+        $user->fill($update);
 
         $user->save();
+
+
     }
 }

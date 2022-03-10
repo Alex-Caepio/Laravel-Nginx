@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;

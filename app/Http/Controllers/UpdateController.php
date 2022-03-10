@@ -21,13 +21,19 @@ class UpdateController extends Controller
     {
         if(Gate::allows('auth-user', $user))
         {
-            $this->service->updateAuth($request);
+            $data = [];
+            $data['email'] = $request->email;
+            $data['password'] = bcrypt($request->password);
+
+            $this->service->updateAuth($user, $data);
 
             return response()->json([
                 'message' => 'Success'], 202);
         }
             return response()->json([
-            'message' => 'Page Not Found'], 422);
+                'message' => 'Wrong Gate!'], 403);
+
+
 
     }
 }
