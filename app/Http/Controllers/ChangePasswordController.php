@@ -25,9 +25,3 @@ class ChangePasswordController extends Controller
         ], Response::HTTP_OK);
     }
 }
-
-
-
-
-
-
