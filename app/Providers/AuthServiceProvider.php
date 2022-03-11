@@ -31,7 +31,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('auth-user', function($user, $request)
         {
             return $user->id == $request->id;
-
         });
 
     }

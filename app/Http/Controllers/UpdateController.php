@@ -32,8 +32,5 @@ class UpdateController extends Controller
         }
             return response()->json([
                 'message' => 'Wrong Gate!'], 403);
-
-
-
     }
 }

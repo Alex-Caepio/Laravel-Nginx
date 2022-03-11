@@ -40,7 +40,6 @@ class UpdateUserTest extends TestCase
         $users = User::factory()->count(2)->create(
             [
                 'email' => 'aa@aa.com',
-
             ]);
         $user = $users->last();
         Passport::actingAs($user);
@@ -60,7 +59,5 @@ class UpdateUserTest extends TestCase
             'password_confirmation' => "12345"
 
         ])->assertStatus(202);
-
         }
-
 }

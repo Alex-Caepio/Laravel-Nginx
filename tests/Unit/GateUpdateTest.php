@@ -15,7 +15,6 @@ class GateUpdateTest extends TestCase
 
     protected $userService;
 
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,14 +23,12 @@ class GateUpdateTest extends TestCase
         Artisan::call('passport:install');
 
         $this->userService = $this->app->make(UpdateService::class);
-
     }
     public function test_gate_update()
     {
         $users = User::factory()->count(2)->create(
             [
                 'email' => 'aa@aa.com',
-
             ]);
         $user = $users->last();
         Passport::actingAs($user);

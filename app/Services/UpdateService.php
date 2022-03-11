@@ -17,7 +17,7 @@ class UpdateService
         }
         if (!empty($data['password']))
         {
-            $update['password'] = bcrypt($data['password']);
+            $update['password'] = $data['password'];
         }
 
         $user->fill($update);
