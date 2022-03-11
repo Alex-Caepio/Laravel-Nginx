@@ -20,7 +20,9 @@ class ChangePasswordController extends Controller
         User::where('email', $reset->email)
             ->update(['password' => $password]);
 
-        echo('updated');
+        return response()->json([
+            'message' => 'Password has been updated'
+        ], Response::HTTP_OK);
     }
 }
 

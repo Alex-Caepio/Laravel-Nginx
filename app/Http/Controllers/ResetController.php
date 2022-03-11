@@ -17,8 +17,9 @@ class ResetController extends Controller
     public function sendEmail(ResetRequest $request)
     {
         $email = $request->email;
-        $user = User::where('email', $email);
-        $reset = Reset::where('email', $email)->first();
+        $token = md5(Str::random(40).time());
+
+        $reset = Reset::where('token', $token)->first();
 
         if ($reset && $reset->created_at->copy()->addHours(2)->isPast()) {
             $reset->delete();
@@ -28,7 +29,6 @@ class ResetController extends Controller
         if (!$reset) {
             $reset = new Reset();
 
-            $token = md5(Str::random(40).time());
             $reset->fill([
                 'token' => $token,
                 'email' => $email
@@ -38,15 +38,12 @@ class ResetController extends Controller
 
             Mail::to($email)->send(new SendMailreset($reset->token, $email));
 
-            return $this->successResponse();
+            return response()->json([
+                'data' => 'Reset Email is send successfully, please check your inbox.'
+            ], Response::HTTP_OK);
         }
-        return ("Nice!");
-    }
-
-        public function successResponse()
-    {
         return response()->json([
-            'data' => 'Reset Email is send successfully, please check your inbox.'
+            'data' => 'Query is running OK'
         ], Response::HTTP_OK);
     }
 }
