@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\ResetController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
