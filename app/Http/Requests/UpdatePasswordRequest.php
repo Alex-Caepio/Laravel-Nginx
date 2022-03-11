@@ -25,7 +25,7 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             'token' => 'required|exists:resets',
-            'password' => 'required|confirmed',
+            'password' => 'required',
             'password_confirmation' => 'required|same:password'
         ];
     }

@@ -17,9 +17,8 @@ class ResetController extends Controller
     public function sendEmail(ResetRequest $request)
     {
         $email = $request->email;
-        $token = md5(Str::random(40).time());
 
-        $reset = Reset::where('token', $token)->first();
+        $reset = Reset::where('token', $request->token)->first();
 
         if ($reset && $reset->created_at->copy()->addHours(2)->isPast()) {
             $reset->delete();
@@ -28,6 +27,7 @@ class ResetController extends Controller
 
         if (!$reset) {
             $reset = new Reset();
+            $token = md5(Str::random(40).time());
 
             $reset->fill([
                 'token' => $token,
