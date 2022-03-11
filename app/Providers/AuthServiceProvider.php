@@ -28,5 +28,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
+        Gate::define('auth-user', function($user, $request)
+        {
+            return $user->id == $request->id;
+        });
+
     }
 }
