@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnToResetsTable extends Migration
+class AddColumnToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnToResetsTable extends Migration
      */
     public function up()
     {
-        Schema::table('resets', function (Blueprint $table) {
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('status')->after('remember_token')->default(1);
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnToResetsTable extends Migration
      */
     public function down()
     {
-        Schema::table('resets', function (Blueprint $table) {
-            $table->dropColumn('timestamps');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 }

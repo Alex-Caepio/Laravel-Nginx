@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DeleteController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Http\Request;
@@ -32,3 +33,5 @@ Route::post('/resetPassword', [ChangePasswordController::class, 'resetPassword']
 Route::post('/send', [ResetController::class, 'sendEmail']);
 
 Route::patch('/users/{user}', [UpdateController::class, 'update'])->middleware(['auth:api']);
+Route::delete('/users/{user}', [DeleteController::class, 'destroy'])->middleware(['auth:api']);
+

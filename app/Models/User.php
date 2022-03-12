@@ -17,10 +17,13 @@ class User extends Authenticatable
      *
      * @var array
      */
+    const ACTIVE = 1;
+    const INACTIVE = 2;
+
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'status',
     ];
 
     /**
