@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::get('/users', [IndexController::class, 'index']);
+Route::get('users/{user}', [IndexController::class, 'person'])->middleware(['auth:api']);
 Route::post('/users', [LoginController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 
