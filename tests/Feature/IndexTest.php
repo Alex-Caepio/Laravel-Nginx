@@ -25,6 +25,6 @@ class IndexTest extends TestCase
     {
         User::factory()->count(5)->create();
 
-        $this->get('/api/users')->assertStatus(200);
+        $this->get('/api/users')->assertStatus(200)->assertJsonStructure(['users']);
     }
 }

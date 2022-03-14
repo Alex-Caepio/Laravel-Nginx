@@ -23,7 +23,5 @@ class UpdateService
         $user->fill($update);
 
         $user->save();
-
-
     }
 }

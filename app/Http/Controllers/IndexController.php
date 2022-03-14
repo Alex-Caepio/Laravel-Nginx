@@ -16,7 +16,7 @@ class IndexController extends Controller
 
         $plucked = $collection->pluck('email');
 
-        return $plucked->all();
+        return response(['users' => $plucked->all()]);
     }
 
     public function person(User $user)
@@ -26,6 +26,6 @@ class IndexController extends Controller
             return new PersonResource($user);
         }
             return response()->json([
-            'message' => 'Something went wrong!'], 403);
+            'message' => 'You are not allowed!'], 403);
     }
 }

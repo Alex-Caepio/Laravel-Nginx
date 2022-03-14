@@ -38,9 +38,6 @@ class PersonTest extends TestCase
 
         $this->get('/api/users/'.$users->first()->id)->assertStatus(403);
 
-        $user = $users->first();
-        Passport::actingAs($user);
-
         $this->get('/api/users/'.$user->id)->assertStatus(200);
     }
 }
