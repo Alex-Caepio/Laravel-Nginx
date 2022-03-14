@@ -33,9 +33,6 @@ class DeleteTest extends TestCase
 
         $this->delete('/api/users/'.$users->first()->id)->assertStatus(403);
 
-        $user = $users->first();
-        Passport::actingAs($user);
-
         $this->delete('/api/users/'.$user->id)->assertStatus(204);
     }
 }
